@@ -45,7 +45,9 @@ def GetWeather(date):
 					else:
 						try:
 							tr_text = float(tr_text)
-						data_list.append(tr_text)
+							data_list.append(tr_text)
+						except:
+							data_list.append(tr_text)
 
 			td_index += 1
 		data_dict[hour] = data_list
