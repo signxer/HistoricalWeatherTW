@@ -75,6 +75,7 @@ def main():
 			df_index += 1
 		print(date)
 	df.to_csv ("weather.csv" , encoding = "utf-8")
+	print("Done!")
    
 if __name__ == '__main__':
     main()
