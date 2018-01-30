@@ -10,7 +10,27 @@
 `begin_date = datetime.date(2016,1,1)`
 
 `end_date = datetime.date(2016,12,31)`
-  
+  
+## Data 資料
+資料會以觀測站ID+站名儲存
+
+資料欄位如下：
+觀測時間(LST) `ObsTime`
+測站氣壓(hPa) `StnPres`
+海平面氣壓(hPa)SeaPres	
+氣溫(℃)Temperature	
+露點溫度(℃)Td dew point	
+相對溼度(%)RH	
+風速(m/s)WS	
+風向(360degree)WD	
+最大陣風(m/s)WSGust	
+最大陣風風向(360degree)WDGust	
+降水量(mm)Precp	
+降水時數(hr)PrecpHour	
+日照時數(hr)SunShine	
+全天空日射量(MJ/㎡)GloblRad	
+能見度(km)Visb
+
 ## Updates 更新
 V2.0
 加入全台觀測站
