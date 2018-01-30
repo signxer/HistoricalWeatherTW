@@ -4,10 +4,12 @@ import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
 
-def GetWeather(date):
-	conv2num = True #是否需要轉成數字
-	station_id = "467490"
-	station_name = "臺中"
+#定義起始日期
+begin_date = datetime.date(2016,1,1)
+end_date = datetime.date(2016,1,1)
+conv2num = True #是否需要轉成數字
+
+def GetWeather(date,station_id,station_name):
 	#兩次URL編碼
 	station_name = urllib.parse.quote(urllib.parse.quote(station_name))
 	url = "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="+station_id+"&stname="+station_name+"&datepicker="+date
@@ -56,28 +58,44 @@ def GetWeather(date):
 	return data_dict
 
 
+
+
 def main():
-	#定義起始日期
-	begin_date = datetime.date(2016,1,1)
-	end_date = datetime.date(2016,12,31)
-	#表頭
-	headers = ["Date","ObsTime","StnPres","SeaPres","Temperature","Tddewpoint","RH","WS","WD","WSGust","WDGust","Precp","PrecpHour","SunShine","GloblRad","Visb"]
-	df = pd.DataFrame(columns=headers)
-	#日期遍历
-	df_index = 0
-	for i in range((end_date - begin_date).days+1):
-		day = begin_date + datetime.timedelta(days=i)  
-		date = str(day)
-		weather_dict = GetWeather(date)
-		for h in range(1,25):
-			rows = weather_dict[h]
-			rows.insert(0,h)
-			rows.insert(0,date)
-			df.loc[df_index] = rows
-			df_index += 1
-		print(date)
-	df.to_csv ("weather.csv" , encoding = "utf-8")
-	print("Done!")
+	with open('station.csv',encoding='utf-8') as f:
+		f_csv = csv.reader(f)
+		headers = next(f_csv)
+		for each in f_csv:
+			station_id = each[0]
+			station_name = each[1]
+			print(station_name)
+			#表頭
+			headers = ["Date","ObsTime","StnPres","SeaPres","Temperature","Tddewpoint","RH","WS","WD","WSGust","WDGust","Precp","PrecpHour","SunShine","GloblRad","Visb"]
+			df = pd.DataFrame(columns=headers)
+			#日期遍历
+			df_index = 0
+			data_correct = True
+			for i in range((end_date - begin_date).days+1):
+				day = begin_date + datetime.timedelta(days=i)  
+				date = str(day)
+				weather_dict = GetWeather(date,station_id,station_name)
+				if(weather_dict == {}):
+					print(station_id+station_name+"Error!")
+					data_correct = False
+					break
+				else:
+					for h in range(1,25):
+						rows = weather_dict[h]
+						rows.insert(0,h)
+						rows.insert(0,date)
+						df.loc[df_index] = rows
+						df_index += 1
+					print(station_id+station_name+date)
+			if(data_correct):
+				df.to_csv (station_id+station_name+".csv" , encoding = "utf-8")
+				print("====================================")
+				print(station_id+station_name+"Done!")
+				print("====================================")
+		print("All Done!")
    
 if __name__ == '__main__':
     main()
