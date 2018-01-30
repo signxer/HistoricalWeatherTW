@@ -4,10 +4,15 @@ import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
 
-#定義起始日期
+#=======================================
+#設定
+#---------------------------------------
+#定義起始/終止日期
 begin_date = datetime.date(2016,1,1)
 end_date = datetime.date(2016,12,31)
-conv2num = True #是否需要轉成數字
+#是否需要轉成數字
+conv2num = True 
+#=======================================
 
 def GetWeather(date,station_id,station_name):
 	#兩次URL編碼
