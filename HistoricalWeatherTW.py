@@ -47,6 +47,8 @@ def GetWeather(date,station_id,station_name):
 							data_list.append(0) #記錄錯誤
 						elif(tr_text == "V"):
 							data_list.append(0) #風向不定
+						elif(tr_text == "/"):
+							data_list.append(0) #風向不定
 						else:
 							data_list.append(float(tr_text))
 					else:
