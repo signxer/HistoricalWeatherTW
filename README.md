@@ -15,21 +15,35 @@
 資料會以觀測站ID+站名儲存
 
 資料欄位如下：
-觀測時間(LST) `ObsTime`
-測站氣壓(hPa) `StnPres`
-海平面氣壓(hPa)SeaPres	
-氣溫(℃)Temperature	
-露點溫度(℃)Td dew point	
-相對溼度(%)RH	
-風速(m/s)WS	
-風向(360degree)WD	
-最大陣風(m/s)WSGust	
-最大陣風風向(360degree)WDGust	
-降水量(mm)Precp	
-降水時數(hr)PrecpHour	
-日照時數(hr)SunShine	
-全天空日射量(MJ/㎡)GloblRad	
-能見度(km)Visb
+`ObsTime` 觀測時間(LST) 
+
+`StnPres` 測站氣壓(hPa) 
+
+`SeaPres`	海平面氣壓(hPa)
+
+`Temperature` 氣溫(℃)
+
+`Tddewpoint` 露點溫度(℃)
+
+`RH` 相對溼度(%)
+
+`WS` 風速(m/s)
+
+`WD` 風向(360degree)
+
+`WSGust` 最大陣風(m/s)
+
+`WDGust` 最大陣風風向(360degree)
+
+`Precp` 降水量(mm)
+
+`PrecpHour` 降水時數(hr)
+
+`SunShine` 日照時數(hr)
+
+`GloblRad` 全天空日射量(MJ/㎡)
+
+`Visb` 能見度(km)
 
 ## Updates 更新
 V2.0
