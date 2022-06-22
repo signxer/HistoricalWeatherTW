@@ -17,7 +17,8 @@ conv2num = True
 def GetWeather(date,station_id,station_name):
 	#兩次URL編碼
 	station_name = urllib.parse.quote(urllib.parse.quote(station_name))
-	url = "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="+station_id+"&stname="+station_name+"&datepicker="+date
+	#網址更新2022/6/23
+	url = "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="+station_id+"&stname="+station_name+"&datepicker="+date+"&altitude="+Altitude+"m"
 	req = urllib.request.Request(url)
 	f = urllib.request.urlopen(req)
 	soup = BeautifulSoup(f.read().decode('utf-8','ignore'), "lxml")
@@ -25,6 +26,8 @@ def GetWeather(date,station_id,station_name):
 	#刪掉三個無關的
 	del data[0]
 	del data[0]
+	del data[0]
+	#更新2022/6/23
 	del data[0]
 	data_dict = {}
 	for tr in data:
@@ -35,8 +38,10 @@ def GetWeather(date,station_id,station_name):
 			if(td_index == 1):
 				hour = int(tr_text)
 			else:
-				if(tr_text == ""):
+				if(tr_text == "..."):#更新2022/6/23
 					# print("NULL")
+					data_list.append("")
+				elif(tr_text == "&"):#更新2022/6/23
 					data_list.append("")
 				else:
 					# print(tr_text)
@@ -76,7 +81,8 @@ def main():
 			station_name = each[1]
 			print(station_name)
 			#表頭
-			headers = ["Date","ObsTime","StnPres","SeaPres","Temperature","Tddewpoint","RH","WS","WD","WSGust","WDGust","Precp","PrecpHour","SunShine","GloblRad","Visb"]
+			#新增紫外線, 雲量 2022/6/23
+			headers = ["Date","ObsTime","StnPres","SeaPres","Temperature","Tddewpoint","RH","WS","WD","WSGust","WDGust","Precp","PrecpHour","SunShine","GloblRad","Visb","UV","Cloud Amount"]
 			df = pd.DataFrame(columns=headers)
 			#日期遍历
 			df_index = 0
